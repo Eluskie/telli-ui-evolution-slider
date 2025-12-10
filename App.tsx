@@ -256,7 +256,7 @@ const OldInterface = memo(() => {
 // --- NEW UI Component (Modern Clean Style) ---
 
 const NewInterface = memo(() => {
-  const [isChatOpen, setIsChatOpen] = useState(true);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('Script');
 
   const renderContent = () => {
