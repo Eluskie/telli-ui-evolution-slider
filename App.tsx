@@ -849,7 +849,7 @@ export default function App() {
               onTouchStart={handleTouchStart}
             >
               {/* Visual Line */}
-              <div className="w-[2px] h-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.2)] relative">
+              <div className="w-[2px] h-full bg-black shadow-[12px_0_40px_-4px_rgba(0,0,0,0.6)] relative">
                 {/* Button */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.15)] flex items-center justify-center border border-gray-200 text-gray-600 hover:scale-110 hover:text-blue-600 transition-all">
                   <GripVertical size={20} />
