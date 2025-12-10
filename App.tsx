@@ -802,7 +802,7 @@ export default function App() {
   }, [isDragging, handleMove]);
 
   return (
-    <div className="w-full h-screen overflow-hidden bg-neutral-100 flex items-center justify-center">
+    <div className="w-full h-screen overflow-hidden bg-transparent flex items-center justify-center">
       <div
         className="flex flex-col items-center justify-center p-8 font-['Inter'] gap-6"
         style={{ width: '142.85%', height: '142.85%', transform: 'scale(0.7)', transformOrigin: 'center' }}
