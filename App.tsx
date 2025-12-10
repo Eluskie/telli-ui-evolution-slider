@@ -66,8 +66,8 @@ const Sidebar = memo(({ isNew = false }: { isNew?: boolean }) => (
         <div
           key={item.label}
           className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${item.active
-              ? (isNew ? 'bg-gray-100 text-gray-900' : 'bg-gray-100 text-gray-900')
-              : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
+            ? (isNew ? 'bg-gray-100 text-gray-900' : 'bg-gray-100 text-gray-900')
+            : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
             }`}
         >
           <item.icon size={18} className={item.active ? 'text-black' : 'text-gray-400'} />
@@ -849,7 +849,7 @@ export default function App() {
               onTouchStart={handleTouchStart}
             >
               {/* Visual Line */}
-              <div className="w-[2px] h-full bg-white shadow-[0_0_20px_rgba(0,0,0,0.2)] relative">
+              <div className="w-[2px] h-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.2)] relative">
                 {/* Button */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.15)] flex items-center justify-center border border-gray-200 text-gray-600 hover:scale-110 hover:text-blue-600 transition-all">
                   <GripVertical size={20} />
