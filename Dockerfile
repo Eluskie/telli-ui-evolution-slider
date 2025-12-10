@@ -12,6 +12,9 @@ RUN npm run build
 # Serve stage
 FROM nginx:alpine
 
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Copy the build output to replace the default nginx contents.
 COPY --from=builder /app/dist /usr/share/nginx/html
 
