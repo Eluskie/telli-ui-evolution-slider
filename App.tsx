@@ -120,18 +120,15 @@ const AnnotationLayer = memo(({ items, colorClass, alignRight = false }: { items
         >
           {/* Pulsing Dot */}
           <div className="relative">
-            <div className={`w-4 h-4 rounded-full ${colorClass} shadow-lg ring-4 ring-white relative z-10 animate-pulse`}></div>
-
-            {/* Line */}
-            <div className={`absolute top-2 ${alignRight ? 'right-2' : 'left-2'} h-px w-16 bg-gray-400/50 origin-left`}></div>
+            <div className={`w-5 h-5 rounded-full ${colorClass} shadow-lg ring-4 ring-white relative z-10 animate-pulse`}></div>
 
             {/* Card */}
             <div
               className={`absolute top-6 ${alignRight ? 'right-[-250px]' : 'left-8'} w-64 bg-white/95 backdrop-blur-sm p-3 rounded-lg shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-gray-100 transform transition-all duration-500 ease-out animate-in fade-in slide-in-from-bottom-2`}
               style={{ marginTop: '-10px' }}
             >
-              <h4 className={`text-xs font-bold uppercase tracking-wider mb-1 ${colorClass.replace('bg-', 'text-')}`}>{item.title}</h4>
-              <p className="text-xs text-gray-600 leading-relaxed font-medium">{item.description}</p>
+              <h4 className={`text-sm font-bold uppercase tracking-wider mb-1 ${colorClass.replace('bg-', 'text-')}`}>{item.title}</h4>
+              <p className="text-sm text-gray-600 leading-relaxed font-medium">{item.description}</p>
             </div>
           </div>
         </div>

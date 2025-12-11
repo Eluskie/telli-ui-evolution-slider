@@ -3,10 +3,17 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Copy root package.json and install dependencies
 COPY package*.json ./
 RUN npm ci
 
+# Copy everything and build main app
 COPY . .
+RUN npm run build
+
+# Build telli-chat app
+WORKDIR /app/telli-chat
+RUN npm ci
 RUN npm run build
 
 # Serve stage
@@ -15,8 +22,11 @@ FROM nginx:alpine
 # Copy custom nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy the build output to replace the default nginx contents.
+# Copy the main app build output
 COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy the chat app build output to /chat subdirectory
+COPY --from=builder /app/telli-chat/dist /usr/share/nginx/html/chat
 
 # Expose port 80
 EXPOSE 80
