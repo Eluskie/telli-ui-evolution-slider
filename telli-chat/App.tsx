@@ -91,7 +91,7 @@ const App: React.FC = () => {
       </div>
 
       {/* Widget with Annotations */}
-      <div className="relative">
+      <div className="relative inline-block">
         <TelliWidget />
         {showAnnotations && <AnnotationLayer items={annotations} colorClass="bg-indigo-500" />}
       </div>
