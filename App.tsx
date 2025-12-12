@@ -137,9 +137,166 @@ const AnnotationLayer = memo(({ items, colorClass, alignRight = false }: { items
   );
 });
 
+// --- Script Editor Page Component ---
+const ScriptEditorPage = memo(({ onBack }: { onBack: () => void }) => {
+  return (
+    <div className="flex h-full w-full bg-white text-gray-800 font-['Inter'] overflow-hidden">
+      <Sidebar isNew={false} />
+      <div className="flex-1 flex h-full overflow-hidden">
+        {/* Left Chat Panel */}
+        <div className="w-[280px] flex flex-col border-r border-gray-200 bg-white flex-shrink-0">
+          <div className="p-4 border-b border-gray-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-white text-sm font-bold">
+                AI
+              </div>
+              <div className="flex-1">
+                <div className="text-sm font-semibold text-gray-900">Prompt Editor</div>
+                <div className="text-xs text-gray-500">Agent: Solar ABC</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 overflow-y-auto p-4">
+            <div className="bg-gray-700 text-white rounded-2xl rounded-tl-md p-4 mb-4 shadow-sm">
+              <div className="text-sm mb-3 leading-relaxed">Hey! I'm here to help you adjust your AI agent's instructions.</div>
+              <div className="text-sm mb-2 font-semibold">Here are some ways I can help you:</div>
+              <div className="text-sm mb-3">
+                <div className="mb-2"><strong>Update the script:</strong></div>
+                <ul className="list-disc pl-4 space-y-1 text-xs">
+                  <li>"Please ask the user for their address after the greeting."</li>
+                </ul>
+              </div>
+              <div className="text-sm mb-3">
+                <div className="mb-2"><strong>Adjust the personality:</strong></div>
+                <ul className="list-disc pl-4 space-y-1 text-xs">
+                  <li>"Make the agent sound friendlier and less direct."</li>
+                </ul>
+              </div>
+              <div className="text-sm mb-3">
+                <div className="mb-2"><strong>Handle specific situations:</strong></div>
+                <ul className="list-disc pl-4 space-y-1 text-xs">
+                  <li>"If the user already found another provider, ask them how they came to that decision."</li>
+                </ul>
+              </div>
+              <div className="text-sm">So, what would you like to improve about your agent today?</div>
+            </div>
+          </div>
+          <div className="p-4 border-t border-gray-200">
+            <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2">
+              <input
+                type="text"
+                placeholder="Send a message"
+                className="flex-1 text-sm outline-none bg-transparent text-gray-900 placeholder-gray-400"
+              />
+              <button className="text-gray-600 hover:text-gray-900 transition-colors">
+                <MessageSquare size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Content Panel */}
+        <div className="flex-1 flex flex-col overflow-hidden bg-gray-50">
+          {/* Header */}
+          <header className="h-14 border-b border-gray-200 flex items-center justify-between px-6 bg-white flex-shrink-0 shadow-sm z-10">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={onBack}
+                className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                <ArrowLeft size={18} />
+              </button>
+              <h1 className="text-base font-semibold text-gray-900">Script Conversation Flow</h1>
+            </div>
+            <button className="px-4 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-900 transition-colors shadow-sm">
+              Save
+            </button>
+          </header>
+
+          {/* Content */}
+          <div className="flex-1 overflow-y-auto p-6">
+            <div className="max-w-4xl">
+              {/* Conversation Start & Context */}
+              <div className="mb-6">
+                <h2 className="text-base font-bold text-gray-900 mb-3">Conversation Start & Context</h2>
+                <p className="text-sm text-gray-600 mb-3">
+                  <strong>Goal:</strong> Confirm the customer's inquiry and state the call's purpose directly.
+                </p>
+                <div className="bg-white border border-gray-200 rounded-lg p-4 text-sm text-gray-700 leading-relaxed mb-3">
+                  <span className="text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-mono text-xs">{`{{personaName}}`}</span> : "Hello{' '}
+                  <span className="text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-mono text-xs">{`{{salutation}}`}</span>{' '}
+                  <span className="text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-mono text-xs">{`{{lastName}}`}</span>, this is{' '}
+                  <span className="text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-mono text-xs">{`{{personaName}}`}</span> from Solar ABC. You recently expressed interest in a solar system for your home, correct? (short pause for answer) Good. To see if you qualify for a free, no-obligation consultation, I need to ask a few quick questions. It will only take a moment. Let's begin."
+                </div>
+                <ul className="space-y-1 text-sm text-gray-600">
+                  <li>If yes: → Step 2.</li>
+                  <li>If no / no time: → "Callback Script".</li>
+                  <li>If no longer interested: → "No Interest Script".</li>
+                </ul>
+              </div>
+
+              {/* Qualification */}
+              <div className="mb-6">
+                <h2 className="text-base font-bold text-gray-900 mb-3">Qualification</h2>
+                <p className="text-sm text-gray-600 mb-4">
+                  <strong>Goal:</strong> Ask the core questions directly to determine eligibility. Do not use filler words between questions.
+                </p>
+
+                <div className="space-y-4">
+                  <div>
+                    <div className="font-semibold text-sm text-gray-900 mb-2">
+                      Question 1 (House Type):{' '}
+                      <span className="text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-mono text-xs">{`{{personaName}}`}</span>{' '}
+                      : "First, what type of house do you live in? A single-family home, or something else?"
+                    </div>
+                    <ul className="space-y-1 text-sm text-gray-600">
+                      <li>Wait for the answer.</li>
+                      <li>Continue to Question 2.</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <div className="font-semibold text-sm text-gray-900 mb-2">
+                      Question 2 (Roof Type):{' '}
+                      <span className="text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-mono text-xs">{`{{personaName}}`}</span>{' '}
+                      : "What kind of roof does it have? Flat or pitched?"
+                    </div>
+                    <ul className="space-y-1 text-sm text-gray-600">
+                      <li>Wait for the answer.</li>
+                      <li>Continue to Question 3.</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <div className="font-semibold text-sm text-gray-900 mb-2">
+                      Question 3 (Owner):{' '}
+                      <span className="text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-mono text-xs">{`{{personaName}}`}</span>{' '}
+                      : "Are you the owner of the property?"
+                    </div>
+                    <ul className="space-y-1 text-sm text-gray-600">
+                      <li>Wait for the answer.</li>
+                      <li>Continue to Question 4.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});
+
 // --- OLD UI Component (Legacy Dashboard Style) ---
 
 const OldInterface = memo(() => {
+  const [showScriptEditor, setShowScriptEditor] = useState(false);
+
+  if (showScriptEditor) {
+    return <ScriptEditorPage onBack={() => setShowScriptEditor(false)} />;
+  }
+
   return (
     <div className="flex h-full w-full bg-[#f8f9fa] text-gray-800 font-['Inter'] overflow-hidden">
       <Sidebar isNew={false} />
@@ -183,7 +340,10 @@ const OldInterface = memo(() => {
                   <h3 className="font-bold text-gray-900 mb-1">System prompt</h3>
                   <p className="text-sm text-gray-600">Fully customize the agent</p>
                 </div>
-                <button className="bg-blue-600 text-white px-5 py-2 rounded text-sm font-medium hover:bg-blue-700 shadow-sm transition-colors">
+                <button
+                  onClick={() => setShowScriptEditor(true)}
+                  className="bg-blue-600 text-white px-5 py-2 rounded text-sm font-medium hover:bg-blue-700 shadow-sm transition-colors"
+                >
                   Edit
                 </button>
               </div>
@@ -855,11 +1015,11 @@ export default function App() {
             </div>
 
             {/* Labels */}
-            <div className={`absolute top-6 left-6 bg-black/80 text-white px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md z-50 pointer-events-none transition-opacity duration-300 ${sliderPosition < 10 ? 'opacity-0' : 'opacity-100'}`}>
-              Legacy Dashboard
+            <div className={`absolute top-6 left-6 bg-black/80 text-white px-5 py-2 rounded-full text-sm font-semibold backdrop-blur-md z-50 pointer-events-none transition-opacity duration-300 ${sliderPosition < 10 ? 'opacity-0' : 'opacity-100'}`}>
+              Before
             </div>
-            <div className={`absolute top-6 right-6 bg-blue-600/90 text-white px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md z-50 pointer-events-none transition-opacity duration-300 ${sliderPosition > 90 ? 'opacity-0' : 'opacity-100'}`}>
-              New Workspace
+            <div className={`absolute top-6 right-6 bg-blue-600/90 text-white px-5 py-2 rounded-full text-sm font-semibold backdrop-blur-md z-50 pointer-events-none transition-opacity duration-300 ${sliderPosition > 90 ? 'opacity-0' : 'opacity-100'}`}>
+              After
             </div>
 
           </div>
