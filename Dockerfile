@@ -28,6 +28,12 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Copy the chat app build output to /chat subdirectory
 COPY --from=builder /app/telli-chat/dist /usr/share/nginx/html/chat
 
+# Copy the animation page to /animation subdirectory
+COPY --from=builder /app/animation /usr/share/nginx/html/animation
+
+# Copy the Rive animation file to the root for access
+COPY --from=builder /app/public/telli_logo_animation.riv /usr/share/nginx/html/telli_logo_animation.riv
+
 # Expose port 80
 EXPOSE 80
 

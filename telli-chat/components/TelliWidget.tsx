@@ -121,7 +121,25 @@ export const TelliWidget: React.FC = () => {
     };
 
     const handleTestClick = (testName: string) => {
-        setInput(`Run ${testName}`);
+        const testMessage = `Run ${testName}`;
+
+        // Close the accordion
+        setIsSuggestionsOpen(false);
+
+        // Send the message directly
+        const newMsg: ChatMessage = { id: Date.now().toString(), sender: 'User', text: testMessage };
+        setMessages(prev => [...prev, newMsg]);
+        setIsTyping(true);
+
+        // Simulate AI response
+        setTimeout(() => {
+            setIsTyping(false);
+            setMessages(prev => [...prev, {
+                id: (Date.now() + 1).toString(),
+                sender: 'System',
+                text: `Running ${testName} test... Analysis complete! All checks passed.`
+            }]);
+        }, 1200);
     };
 
     return (
