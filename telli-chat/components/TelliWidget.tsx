@@ -53,7 +53,7 @@ const SUGGESTED_ITEMS: FeedbackItem[] = [
 
 // Start with a clean state
 const INITIAL_MESSAGES: ChatMessage[] = [
-    { id: '1', sender: 'System', text: 'Hi! I\'m Telli. How can I help you improve your agent today?' },
+    { id: '1', sender: 'System', text: 'Hi! I\'m telli. How can I help you improve your agent today?' },
 ];
 
 export const TelliWidget: React.FC = () => {
@@ -199,12 +199,13 @@ export const TelliWidget: React.FC = () => {
     };
 
     return (
-        <div className="relative w-full max-w-[500px] h-[85vh] max-h-[900px] bg-white rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden border border-gray-100 ring-8 ring-gray-50/50" style={{ transform: 'scale(0.7)', transformOrigin: 'center' }}>
+        <div style={{ width: '119.05%', height: '119.05%', transform: 'scale(0.84)', transformOrigin: 'center' }}>
+        <div className="relative w-full max-w-[500px] h-[85vh] max-h-[900px] bg-white rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden border border-gray-100 ring-8 ring-gray-50/50">
             {/* Header */}
             <div className="absolute top-0 left-0 right-0 h-16 bg-white/95 backdrop-blur-sm border-b border-gray-100 flex items-center justify-between px-8 z-10">
                 <div className="flex items-center gap-2">
-                    <img src="/chat/telli-logo.svg" alt="Telli" className="w-5 h-5" />
-                    <span className="text-sm font-semibold text-gray-800">Telli</span>
+                    <img src="/chat/telli-logo.svg" alt="telli" className="w-5 h-5" />
+                    <span className="text-sm font-semibold text-gray-800">telli</span>
                 </div>
                 <div className="cursor-pointer text-gray-400 hover:text-gray-800 transition-colors">
                     <X size={18} />
@@ -319,7 +320,7 @@ export const TelliWidget: React.FC = () => {
                                 handleSend();
                             }
                         }}
-                        placeholder="Ask Telli to improve the agent..."
+                        placeholder="Ask telli to improve the agent..."
                         className="w-full h-[5.5rem] p-5 pb-12 resize-none outline-none text-gray-700 placeholder-gray-400 bg-transparent rounded-[2rem] text-[15px] no-scrollbar"
                     />
                     
@@ -343,6 +344,7 @@ export const TelliWidget: React.FC = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

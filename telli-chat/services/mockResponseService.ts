@@ -13,7 +13,7 @@ const RESPONSE_PATTERNS: ResponsePattern[] = [
   {
     keywords: ['hello', 'hi', 'hey', 'greetings'],
     responses: [
-      "Hi! I'm Telli, your AI assistant for improving customer service conversations. I can help analyze tone, clarity, and empathy in agent interactions. What would you like to explore?",
+      "Hi! I'm telli, your AI assistant for improving customer service conversations. I can help analyze tone, clarity, and empathy in agent interactions. What would you like to explore?",
       "Hello! I specialize in improving customer service quality. I can suggest tone adjustments, clarity fixes, or empathy improvements. How can I help today?",
     ]
   },

@@ -1,5 +1,5 @@
 {
-  "name": "Telli AI Feedback Interface",
-  "description": "A high-fidelity implementation of the Telli AI agent feedback UI with interactive states and smooth animations.",
+  "name": "telli AI Feedback Interface",
+  "description": "A high-fidelity implementation of the telli AI agent feedback UI with interactive states and smooth animations.",
   "requestFramePermissions": []
 }
