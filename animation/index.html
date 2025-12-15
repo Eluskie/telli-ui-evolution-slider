@@ -3,18 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Telli - Loading Animation</title>
-    <script>
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init zr Wr fi Br Gr ci Nr Hr capture Ui calculateEventProperties Kr register register_once register_for_session unregister unregister_for_session Zr getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Xr Jr createPersonProfile Qr jr ts opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Vr debug O Yr getPageViewId captureTraceFeedback captureTraceMetric Or".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('phc_yaBBaqnIpjL2wIHr8zbnI6YrHfOhu9O13HW8Vb4PTHY', {
-        api_host: 'https://eu.i.posthog.com',
-        defaults: '2025-11-30',
-        person_profiles: 'identified_only',
-    })
-</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Telli Animation</title>
     <style>
         * {
             margin: 0;
@@ -23,30 +12,12 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
             width: 100%;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-
-        .animation-wrapper {
-            background: #f8f9fa;
-            padding: 60px 20px;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
         #canvas {
@@ -54,99 +25,10 @@
             width: 100%;
             height: auto;
         }
-
-        .content {
-            padding: 48px 40px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 16px;
-        }
-
-        .description {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #666;
-            margin-bottom: 24px;
-        }
-
-        .tech-note {
-            background: #f0f4ff;
-            border-left: 4px solid #667eea;
-            padding: 16px 20px;
-            border-radius: 8px;
-            text-align: left;
-            margin-top: 32px;
-        }
-
-        .tech-note h3 {
-            font-size: 14px;
-            font-weight: 600;
-            color: #667eea;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        .tech-note p {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.5;
-        }
-
-        @media (max-width: 640px) {
-            .content {
-                padding: 32px 24px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            .description {
-                font-size: 16px;
-            }
-
-            .animation-wrapper {
-                padding: 40px 20px;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="animation-wrapper">
-            <canvas id="canvas" width="400" height="400"></canvas>
-        </div>
-
-        <div class="content">
-            <h1>Telli Loading Animation</h1>
-
-            <p class="description">
-                This interactive animation represents Telli's core functionality: connecting calls with a simple click.
-                The animation simulates a phone dialing sequence, creating a smooth and engaging loading state
-                for users waiting to connect with customer service agents.
-            </p>
-
-            <p class="description">
-                The Telli logo transforms into an active call indicator, providing visual feedback that mimics
-                the familiar experience of initiating a phone call—perfect for AI-powered voice agent applications.
-            </p>
-
-            <div class="tech-note">
-                <h3>Technical Details</h3>
-                <p>
-                    Built with <strong>Rive</strong>, a powerful runtime animation tool that delivers high-performance,
-                    interactive graphics. The animation loops seamlessly and can be integrated into any web application
-                    to enhance user experience during call initialization or loading states.
-                </p>
-            </div>
-        </div>
-    </div>
+    <canvas id="canvas" width="400" height="400"></canvas>
 
     <script src="https://unpkg.com/@rive-app/canvas@2.24.0"></script>
     <script>
@@ -159,7 +41,6 @@
             },
         });
 
-        // Handle window resize to keep animation crisp
         window.addEventListener("resize", () => {
             r.resizeDrawingSurfaceToCanvas();
         });
