@@ -20,18 +20,18 @@ export const FeedbackList: React.FC<FeedbackListProps> = ({ items, onTryFix }) =
 
         <div className="space-y-3">
             {items.map((item) => (
-                <div key={item.id} className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 flex justify-between items-center group">
+                <div key={item.id} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200 flex justify-between items-center group">
                     <div className="flex items-start gap-4">
-                        <span className="text-xl font-bold text-gray-100 group-hover:text-blue-100 transition-colors">#{item.number}</span>
+                        <span className="text-xl font-bold text-gray-200 group-hover:text-blue-200 transition-colors">#{item.number}</span>
                         <div>
                             <h4 className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">{item.title}</h4>
-                            <p className="text-xs text-gray-500 mt-1 leading-relaxed">{item.description}</p>
+                            <p className="text-xs text-gray-600 mt-1 leading-relaxed">{item.description}</p>
                         </div>
                     </div>
-                    
-                    <button 
+
+                    <button
                         onClick={() => onTryFix(item)}
-                        className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gray-50 border border-gray-100 text-xs font-semibold text-gray-600 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all active:scale-95 whitespace-nowrap shadow-sm"
+                        className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-gray-600 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all active:scale-95 whitespace-nowrap shadow-sm"
                     >
                         Try fix
                     </button>

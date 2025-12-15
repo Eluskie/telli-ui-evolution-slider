@@ -3,7 +3,10 @@ import { X, Paperclip, ArrowUp, Star, ChevronRight, Play } from 'lucide-react';
 import { FeedbackCard } from './FeedbackCard';
 import { FeedbackList } from './FeedbackList';
 import { Avatar } from './Avatar';
-import { ChatMessage, FeedbackAction, FeedbackItem, TranscriptMessage } from '../types';
+import { ChatMessage, FeedbackAction, FeedbackItem, TranscriptMessage, ConversationMessage } from '../types';
+import { generateChatResponse } from '../services/geminiService';
+import { TELLI_SYSTEM_PROMPT } from '../config/systemPrompt';
+import { CHAT_CONFIG } from '../constants/chatConfig';
 
 // --- DATA MOCKING ---
 
@@ -58,7 +61,8 @@ export const TelliWidget: React.FC = () => {
     const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
     const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
-    
+    const [conversationHistory, setConversationHistory] = useState<ConversationMessage[]>([]);
+
     // Auto scroll to bottom
     const scrollRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -67,34 +71,72 @@ export const TelliWidget: React.FC = () => {
         }
     }, [messages, isTyping]);
 
-    const handleSend = () => {
+    const handleSend = async () => {
         if (!input.trim()) return;
-        
-        const newMsg: ChatMessage = { id: Date.now().toString(), sender: 'User', text: input };
+
+        const userMessage = input.trim();
+        const newMsg: ChatMessage = { id: Date.now().toString(), sender: 'User', text: userMessage };
         setMessages(prev => [...prev, newMsg]);
         setInput('');
         setIsTyping(true);
 
-        // Simulate AI Logic
-        setTimeout(() => {
-            setIsTyping(false);
-            
-            // If user mentions "tone", "fix", "change", show the list
-            if (input.toLowerCase().match(/(tone|fix|change|feedback|improve)/)) {
+        // FIRST: Check pattern matching for trigger words (reliable)
+        const triggerMatch = userMessage.toLowerCase().match(/(tone|fix|change|feedback|improve)/);
+
+        if (triggerMatch) {
+            // Pattern matched - show FeedbackList
+            setTimeout(() => {
+                setIsTyping(false);
                 setMessages(prev => [...prev, {
                     id: (Date.now() + 1).toString(),
                     sender: 'System',
                     component: 'FeedbackList',
                     data: SUGGESTED_ITEMS
                 }]);
-            } else {
-                 setMessages(prev => [...prev, {
-                    id: (Date.now() + 1).toString(),
-                    sender: 'System',
-                    text: "I can help you analyze conversations or suggest improvements. Try asking 'Show me feedback on the tone' or 'How can I fix this?'"
-                }]);
-            }
-        }, 1200);
+            }, CHAT_CONFIG.TYPING_DELAY_MS);
+            return;
+        }
+
+        // NO MATCH: Use LLM for natural response
+        try {
+            // Update conversation history (limit to last 5 messages)
+            const updatedHistory: ConversationMessage[] = [
+                ...conversationHistory.slice(-4), // Keep last 4
+                { role: 'user', text: userMessage }
+            ].slice(-CHAT_CONFIG.CONVERSATION_HISTORY_LIMIT); // Ensure max 5
+
+            setConversationHistory(updatedHistory);
+
+            // Call LLM
+            const aiResponse = await generateChatResponse(
+                updatedHistory,
+                TELLI_SYSTEM_PROMPT
+            );
+
+            setIsTyping(false);
+
+            // Add AI response to chat
+            setMessages(prev => [...prev, {
+                id: (Date.now() + 1).toString(),
+                sender: 'System',
+                text: aiResponse
+            }]);
+
+            // Update history with AI response
+            setConversationHistory((prev: ConversationMessage[]) => [
+                ...prev,
+                { role: 'model', text: aiResponse }
+            ]);
+
+        } catch (error) {
+            console.error('Chat error:', error);
+            setIsTyping(false);
+            setMessages(prev => [...prev, {
+                id: (Date.now() + 1).toString(),
+                sender: 'System',
+                text: "I can help analyze conversations and suggest improvements like tone adjustment, clarity fixes, or empathy boosts. What would you like to explore?"
+            }]);
+        }
     };
 
     const handleTryFix = (item: FeedbackItem) => {
@@ -156,7 +198,7 @@ export const TelliWidget: React.FC = () => {
             </div>
 
             {/* Chat Area */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto no-scrollbar p-4 pt-16">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto no-scrollbar p-4 pt-16 bg-gray-50/50">
                 {/*
                     pb-48 ensures content isn't hidden behind the floating input even when accordion is open.
                     min-h-full + justify-end keeps messages at the bottom.
@@ -188,9 +230,9 @@ export const TelliWidget: React.FC = () => {
                                 
                                 <div className={`
                                     max-w-[80%] p-3.5 px-5 text-[15px] leading-relaxed shadow-sm
-                                    ${msg.sender === 'User' 
-                                        ? 'bg-[#EAF4FF] text-gray-900 rounded-2xl rounded-tr-sm font-medium' 
-                                        : 'text-gray-800 font-normal bg-white border border-gray-100 rounded-2xl rounded-tl-sm'}
+                                    ${msg.sender === 'User'
+                                        ? 'bg-blue-100 text-gray-900 rounded-2xl rounded-tr-sm font-medium'
+                                        : 'text-gray-800 font-normal bg-slate-50/50 border border-slate-100 rounded-2xl rounded-tl-sm'}
                                 `}>
                                     {msg.text}
                                 </div>
@@ -201,11 +243,11 @@ export const TelliWidget: React.FC = () => {
                     {isTyping && (
                          <div className="flex gap-4 justify-start items-end">
                             <Avatar />
-                            <div className="bg-white border border-gray-100 p-4 px-5 rounded-2xl rounded-tl-sm shadow-sm">
+                            <div className="bg-blue-50/40 border border-blue-100 p-4 px-5 rounded-2xl rounded-tl-sm shadow-sm">
                                 <div className="flex gap-1.5">
-                                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-0"></span>
-                                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-100"></span>
-                                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-200"></span>
+                                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce delay-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce delay-100"></span>
+                                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce delay-200"></span>
                                 </div>
                             </div>
                         </div>
@@ -214,13 +256,13 @@ export const TelliWidget: React.FC = () => {
             </div>
 
             {/* Bottom Section: Floating Input + Actions */}
-            <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-white via-white to-transparent pt-6">
+            <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-gray-50/50 via-gray-50/50 to-transparent pt-6">
                 
                 {/* Suggestions Accordion */}
                 <div className="mb-2 border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all bg-white z-20 relative">
                     <button
                         onClick={() => setIsSuggestionsOpen(!isSuggestionsOpen)}
-                        className="w-full flex items-center justify-between p-2.5 px-4 bg-white hover:bg-gray-50 transition-colors"
+                        className={`w-full flex items-center justify-between p-2.5 px-4 transition-all ${isSuggestionsOpen ? 'bg-gradient-to-r from-purple-50 to-blue-50' : 'bg-white hover:bg-gray-50'}`}
                     >
                         <div className="flex items-center gap-2.5">
                             <Star size={16} className="text-purple-500" />
@@ -229,9 +271,9 @@ export const TelliWidget: React.FC = () => {
                         </div>
                         <ChevronRight size={16} className={`text-gray-400 transition-transform duration-300 ${isSuggestionsOpen ? 'rotate-90' : ''}`} />
                     </button>
-                    
+
                     <div className={`
-                        transition-all duration-300 ease-in-out bg-gray-50
+                        transition-all duration-300 ease-in-out bg-gradient-to-r from-purple-50/30 to-blue-50/30
                         ${isSuggestionsOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}
                     `}>
                         <div className="p-2 space-y-1">

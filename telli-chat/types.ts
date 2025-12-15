@@ -28,3 +28,8 @@ export interface ChatMessage {
   component?: 'FeedbackCard' | 'FeedbackList';
   data?: any; // Flexible payload for component data
 }
+
+export interface ConversationMessage {
+  role: 'user' | 'model';
+  text: string;
+}

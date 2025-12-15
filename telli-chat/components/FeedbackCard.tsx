@@ -47,7 +47,7 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({ data }) => {
   };
 
   return (
-    <div className="mt-2 mb-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden w-full max-w-lg transition-all duration-300">
+    <div className="mt-2 mb-2 bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden w-full max-w-lg transition-all duration-300 hover:shadow-xl">
       <div className="p-5">
         <div className="flex justify-between items-start mb-1">
           <h3 className="text-sm font-semibold text-gray-900">{data.title}</h3>
@@ -71,15 +71,15 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({ data }) => {
         </div>
 
         {/* Action Box */}
-        <div className="bg-gray-50 rounded-xl p-4 text-sm font-medium text-gray-800 mb-4 border border-gray-100/50">
+        <div className="bg-blue-50/30 rounded-xl p-4 text-sm font-medium text-gray-800 mb-4 border border-blue-100/50">
             {data.description}
         </div>
 
         {/* Collapsible Transcript Area */}
-        <div 
+        <div
             className={`transition-all duration-500 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'}`}
         >
-            <div className="space-y-4 pb-4 pl-1 pr-1 border-l-2 border-gray-100 ml-2 my-2">
+            <div className="space-y-4 pb-4 pl-1 pr-1 border-l-2 border-gray-200 ml-2 my-2">
                 {transcript.map((msg) => (
                     <div key={msg.id} className={`flex gap-3 pl-3 ${msg.sender === 'User' ? 'justify-end' : 'justify-start'}`}>
                             {msg.sender !== 'User' && <Avatar type="agent" />}
@@ -100,7 +100,7 @@ export const FeedbackCard: React.FC<FeedbackCardProps> = ({ data }) => {
         </div>
 
         {/* Footer Actions */}
-        <div className="mt-2 flex items-center justify-center min-h-[40px] pt-4 border-t border-gray-50">
+        <div className="mt-2 flex items-center justify-center min-h-[40px] pt-4 border-t border-gray-100">
             {status === 'pending' && (
                 <div className="flex gap-6 animate-in fade-in duration-300">
                     <button 
