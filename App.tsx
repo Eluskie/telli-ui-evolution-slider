@@ -335,17 +335,17 @@ const OldInterface = memo(() => {
               </div>
 
               {/* System Prompt Box */}
-              <div className="mb-8 bg-blue-50 border border-blue-200 rounded-lg p-6 flex items-center justify-between shadow-sm">
+              <div className="mb-8 bg-blue-50 border border-blue-200 rounded-lg p-6 shadow-sm">
                 <div>
                   <h3 className="font-bold text-gray-900 mb-1">System prompt</h3>
-                  <p className="text-sm text-gray-600">Fully customize the agent</p>
+                  <p className="text-sm text-gray-600 mb-3">Fully customize the agent</p>
+                  <button
+                    onClick={() => setShowScriptEditor(true)}
+                    className="bg-blue-600 text-white px-5 py-2 rounded text-sm font-medium hover:bg-blue-700 shadow-sm transition-colors"
+                  >
+                    Edit
+                  </button>
                 </div>
-                <button
-                  onClick={() => setShowScriptEditor(true)}
-                  className="bg-blue-600 text-white px-5 py-2 rounded text-sm font-medium hover:bg-blue-700 shadow-sm transition-colors"
-                >
-                  Edit
-                </button>
               </div>
 
               {/* Persona Section */}

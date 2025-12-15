@@ -173,15 +173,29 @@ export const TelliWidget: React.FC = () => {
         setMessages(prev => [...prev, newMsg]);
         setIsTyping(true);
 
-        // Simulate AI response
-        setTimeout(() => {
-            setIsTyping(false);
-            setMessages(prev => [...prev, {
-                id: (Date.now() + 1).toString(),
-                sender: 'System',
-                text: `Running ${testName} test... Analysis complete! All checks passed.`
-            }]);
-        }, 1200);
+        // Check if this test should show feedback suggestions
+        if (testName === 'Tone Consistency') {
+            // Show the feedback list for tone-related suggestions
+            setTimeout(() => {
+                setIsTyping(false);
+                setMessages(prev => [...prev, {
+                    id: (Date.now() + 1).toString(),
+                    sender: 'System',
+                    component: 'FeedbackList',
+                    data: SUGGESTED_ITEMS
+                }]);
+            }, CHAT_CONFIG.TYPING_DELAY_MS);
+        } else {
+            // For other tests, show a generic completion message
+            setTimeout(() => {
+                setIsTyping(false);
+                setMessages(prev => [...prev, {
+                    id: (Date.now() + 1).toString(),
+                    sender: 'System',
+                    text: `Running ${testName} test... Analysis complete! All checks passed.`
+                }]);
+            }, 1200);
+        }
     };
 
     return (
