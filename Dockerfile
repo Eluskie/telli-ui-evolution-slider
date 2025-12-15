@@ -32,7 +32,7 @@ COPY --from=builder /app/telli-chat/dist /usr/share/nginx/html/chat
 COPY --from=builder /app/animation /usr/share/nginx/html/animation
 
 # Copy the Rive animation file to the root for access
-COPY --from=builder /app/public/telli_logo_animation.riv /usr/share/nginx/html/telli_logo_animation.riv
+COPY --from=builder /app/public/loading_spinner_telli.riv /usr/share/nginx/html/loading_spinner_telli.riv
 
 # Expose port 80
 EXPOSE 80
