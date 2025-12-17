@@ -113,7 +113,7 @@ const App: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gray-50 p-4 gap-6">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center p-4 gap-6">
       {/* Toggle Controls */}
       <div className="flex items-center gap-3 bg-white px-5 py-3 rounded-full shadow-sm border border-gray-200 z-50">
         <span className="text-sm font-semibold text-gray-700">Design Notes</span>
