@@ -200,7 +200,7 @@ export const TelliWidget: React.FC = () => {
 
     return (
         <div style={{ width: '119.05%', height: '119.05%', transform: 'scale(0.84)', transformOrigin: 'center' }}>
-        <div className="relative w-full max-w-[500px] h-[85vh] max-h-[900px] bg-white rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden border border-gray-100 ring-8 ring-gray-50/50">
+        <div className="relative w-full max-w-[500px] h-[85vh] max-h-[900px] rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden border border-gray-100 ring-8 ring-gray-50/50">
             {/* Header */}
             <div className="absolute top-0 left-0 right-0 h-16 bg-white/95 backdrop-blur-sm border-b border-gray-100 flex items-center justify-between px-8 z-10">
                 <div className="flex items-center gap-2">
@@ -213,7 +213,7 @@ export const TelliWidget: React.FC = () => {
             </div>
 
             {/* Chat Area */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto no-scrollbar p-4 pt-16 bg-gray-50/50">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto no-scrollbar p-4 pt-16">
                 {/*
                     pb-48 ensures content isn't hidden behind the floating input even when accordion is open.
                     min-h-full + justify-end keeps messages at the bottom.
@@ -271,7 +271,7 @@ export const TelliWidget: React.FC = () => {
             </div>
 
             {/* Bottom Section: Floating Input + Actions */}
-            <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-gray-50/50 via-gray-50/50 to-transparent pt-6">
+            <div className="absolute bottom-0 left-0 right-0 p-3 pt-6">
                 
                 {/* Suggestions Accordion */}
                 <div className="mb-2 border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all bg-white z-20 relative">
