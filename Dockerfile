@@ -34,8 +34,8 @@ COPY --from=builder /app/animation /usr/share/nginx/html/animation
 # Copy the Rive animation file to the root for access
 COPY --from=builder /app/public/loading_spinner_telli.riv /usr/share/nginx/html/loading_spinner_telli.riv
 
-# Expose port 80
-EXPOSE 80
+# Expose ports 80 and 443
+EXPOSE 80 443
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
