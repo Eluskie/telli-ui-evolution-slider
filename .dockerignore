@@ -1,0 +1,11 @@
+node_modules
+.git
+.gitignore
+*.md
+.env
+.DS_Store
+dist
+*.log
+.vscode
+.idea
+debug-container.sh

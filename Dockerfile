@@ -16,6 +16,11 @@ WORKDIR /app/telli-chat
 RUN npm ci
 RUN npm run build
 
+# Verify builds completed
+RUN ls -la /app/dist && echo "✓ Main app built"
+RUN ls -la /app/telli-chat/dist && echo "✓ Chat app built"
+RUN ls -la /app/animation && echo "✓ Animation files exist"
+
 # Serve stage
 FROM nginx:alpine
 
