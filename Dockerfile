@@ -36,6 +36,11 @@ COPY --from=builder /app/telli-chat/dist /usr/share/nginx/html/chat
 # Copy the animation page to /animation subdirectory
 COPY --from=builder /app/animation /usr/share/nginx/html/animation
 
+# Create test marker files to verify routing
+RUN echo "CHAT_APP" > /usr/share/nginx/html/chat/test-marker.txt
+RUN echo "ANIMATION" > /usr/share/nginx/html/animation/test-marker.txt  
+RUN echo "MAIN_APP" > /usr/share/nginx/html/test-marker.txt
+
 # Copy the Rive animation file to the root for access
 COPY --from=builder /app/public/loading_spinner_telli.riv /usr/share/nginx/html/loading_spinner_telli.riv
 
