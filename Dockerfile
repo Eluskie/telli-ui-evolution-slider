@@ -24,8 +24,8 @@ RUN ls -la /app/animation && echo "✓ Animation files exist"
 # Serve stage
 FROM nginx:alpine
 
-# Copy custom nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy custom nginx config (Dokploy version - no SSL)
+COPY nginx-dokploy.conf /etc/nginx/conf.d/default.conf
 
 # Copy the main app build output
 COPY --from=builder /app/dist /usr/share/nginx/html
@@ -44,8 +44,8 @@ RUN echo "MAIN_APP" > /usr/share/nginx/html/test-marker.txt
 # Copy the Rive animation file to the root for access
 COPY --from=builder /app/public/loading_spinner_telli.riv /usr/share/nginx/html/loading_spinner_telli.riv
 
-# Expose ports 80 and 443
-EXPOSE 80 443
+# Expose port 80 (Dokploy handles SSL externally)
+EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
